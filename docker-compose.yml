@@ -1,14 +1,17 @@
 version: '2'
 
 services:
+  client:
+    build: ./hadoop-client
+    container_name: "client"
   master:
     build: ./hadoop-master
+    container_name: "master"
     ports:
       - "9870:9870"
       - "8088:8088"
       - "19888:19888"
       - "8188:8188"
-    container_name: "master"
   slave1:
     build: ./hadoop-slave
     container_name: "slave1"

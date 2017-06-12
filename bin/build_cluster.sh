@@ -58,6 +58,8 @@ launch_cluster() {
   fi
   echo "Launching master server"
   docker run -d -p 9870:9870 -p 8088:8088 -p 19888:19888 -p 8188:8188 --net hadoop-network --name master -h master lewuathe/hadoop-master:latest
+  echo "Launching client"
+  docker run -d --net hadoop-network --name client -h client karolmajek/hadoop-client:latest
   echo "Launching slave servers"
   for i in `seq 1 $DATANODE_NUM`; do
     docker run -d -p 990${i}:9864 -p 804${i}:8042 --name slave${i} -h slave${i} --net hadoop-network lewuathe/hadoop-slave:latest
@@ -79,6 +81,8 @@ build_images() {
   docker build -t lewuathe/hadoop-master:latest .
   cd $DIR/../hadoop-slave
   docker build -t lewuathe/hadoop-slave:latest .
+  cd $DIR/../hadoop-client
+  docker build -t karolmajek/hadoop-client:latest .
 }
 
 case $1 in
