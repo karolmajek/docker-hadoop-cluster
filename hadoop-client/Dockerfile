@@ -6,6 +6,9 @@
 FROM lewuathe/hadoop-base:latest
 MAINTAINER lewuathe
 
+RUN apt-get update
+RUN apt-get install -y git
+
 ADD bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
